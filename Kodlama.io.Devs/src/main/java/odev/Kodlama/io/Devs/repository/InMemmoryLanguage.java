@@ -20,8 +20,6 @@ public class InMemmoryLanguage {
 	
 	public ProgrammingLanguage addLanguage(ProgrammingLanguage language) throws Exception {    //ADD
 		
-		LanguageNameControl(language.getName());
-		
 		languageList.add(language);
 		
 		System.out.println(language+" dili eklendi");
@@ -43,8 +41,6 @@ public class InMemmoryLanguage {
 		
 		ProgrammingLanguage result = getProgrammingLanguageById(id);
 		
-		LanguageNameControl(newLanguage.getName());
-		
 		languageList.set(languageList.indexOf(result), newLanguage);
 		
 		return newLanguage;
@@ -54,25 +50,10 @@ public class InMemmoryLanguage {
 		return languageList.stream()
 				.filter(l -> l.getId() == id)
 				.findAny()
-				.orElseThrow(()-> new NoSuchElementException(
-						id+" numarasına ait progralama dili listede mevcut değil:)"));
+				.get();
+				
 	}
 	
  
-	
-	public void LanguageNameControl(String languageName) throws Exception {
-		
-		List<String> names=languageList
-				.stream()
-				.map(l->l.getName())
-				.collect(Collectors.toList());
-		
-		if(names.contains(languageName))
-			throw new Exception(languageName+" dili zaten listede mevcuttur :)");
-		
-		if(languageName.isBlank()) 
-			throw new Exception("programlama dili boş ya da null olmamalıdır");
-	}
-	
 	
 }
