@@ -37,7 +37,7 @@ public class LanguageController {
 	}
 	
 	@PostMapping
-	public LanguageDto add(@RequestBody SaveLanguageRequest request) {
+	public LanguageDto add(@RequestBody SaveLanguageRequest request) throws Exception {
 		return languageService.add(request);
 	}
 	

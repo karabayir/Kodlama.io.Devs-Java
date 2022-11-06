@@ -44,12 +44,15 @@ public class FrameworkService {
 		return frameworkRepository.findById(id).orElseThrow();
 	}
 	
-	public FrameworkDto add(SaveFrameworkRequest request) {	
+	public FrameworkDto add(SaveFrameworkRequest request) throws Exception {	
 		Language language = languageService.findById(request.getLanguageId());
 		
 		Framework framework = new Framework();
 		framework.setName(request.getName());
 		framework.setLanguage(language);
+		
+		if(framework.getName().isBlank() || framework.getLanguage().getName().isBlank())
+			throw new Exception("Framewok or Language names are not be null");
 		
 		frameworkRepository.save(framework);
 		

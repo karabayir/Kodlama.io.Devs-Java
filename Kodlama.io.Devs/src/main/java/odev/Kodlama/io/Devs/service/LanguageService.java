@@ -40,7 +40,7 @@ public class LanguageService {
     	return languageRepository.findById(id).orElseThrow();
     }
 	
-	public LanguageDto add(SaveLanguageRequest request) {
+	public LanguageDto add(SaveLanguageRequest request) throws Exception {
 		
 		Language language = new Language();
 		language.setName(request.getName());
@@ -48,6 +48,9 @@ public class LanguageService {
 		LanguageDto languageDto = new LanguageDto();
 		languageDto.setId(language.getId());
 		languageDto.setName(language.getName());
+		
+		if(language.getName().isBlank())
+			throw new Exception("Language is not be blank");
 		
 		languageRepository.save(language);
 		
