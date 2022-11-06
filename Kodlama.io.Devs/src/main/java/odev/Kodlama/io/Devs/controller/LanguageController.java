@@ -9,47 +9,46 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import odev.Kodlama.io.Devs.model.ProgrammingLanguage;
+import odev.Kodlama.io.Devs.dto.LanguageDto;
+import odev.Kodlama.io.Devs.dto.SaveLanguageRequest;
+import odev.Kodlama.io.Devs.dto.UpdateLanguageRequest;
 import odev.Kodlama.io.Devs.service.LanguageService;
 
 @RestController
-@RequestMapping("/api/languages")
+@RequestMapping("/api/languages/")
 public class LanguageController {
 
-	private LanguageService languageService;
+	private final LanguageService languageService;
 
 	public LanguageController(LanguageService languageService) {
 		this.languageService = languageService;
 	}
 	
-	@GetMapping("/getall")
-	public List<ProgrammingLanguage> getAllLanguages(){
+	@GetMapping
+	public List<LanguageDto> getAllLanguages(){
 		return languageService.getAllLanguages();
 	}
 	
-	@GetMapping("/{id}")
-	public ProgrammingLanguage getProgrammingLanguageById(@PathVariable int id) {
-		return languageService.getProgrammingLanguageById(id);
+	@GetMapping("{id}")
+	public LanguageDto findLanguageById(@PathVariable int id) {
+		return languageService.findLanguageById(id);
 	}
 	
-	
-	
-	@PostMapping()
-	public ProgrammingLanguage addLanguage(@RequestBody ProgrammingLanguage language) throws Exception {
-		return languageService.addLanguage(language);
+	@PostMapping
+	public LanguageDto add(@RequestBody SaveLanguageRequest request) {
+		return languageService.add(request);
 	}
 	
-	@DeleteMapping({"/{id}"})
-	public void deleteLanguage(@PathVariable int id) {
-		 languageService.deleteLanguage(id);
+	@PutMapping("{id}")
+	public LanguageDto updateLanguageById(@PathVariable int id,@RequestBody UpdateLanguageRequest request) {
+		return languageService.updateLanguageById(id, request);
 	}
 	
-	@PutMapping({"/{id}"})
-	public ProgrammingLanguage updateLanguage(@PathVariable int id ,@RequestBody ProgrammingLanguage newLanguage) throws Exception {
-		return languageService.updateLanguage(id, newLanguage);
+	@DeleteMapping("{id}")
+	public void deleteLanguageById(int id) {
+		languageService.deleteLanguageById(id);
 	}
-
+	
 }
