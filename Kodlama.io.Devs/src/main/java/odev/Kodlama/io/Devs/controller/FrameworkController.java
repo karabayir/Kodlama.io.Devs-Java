@@ -37,7 +37,7 @@ public class FrameworkController {
 	}
 	
 	@PostMapping
-	public FrameworkDto add(@RequestBody SaveFrameworkRequest request) {
+	public FrameworkDto add(@RequestBody SaveFrameworkRequest request) throws Exception {
 		return frameworkService.add(request);
 	}
 	
