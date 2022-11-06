@@ -7,18 +7,18 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
-import odev.Kodlama.io.Devs.model.ProgrammingLanguage;
+import odev.Kodlama.io.Devs.model.Language;
 
-@Repository
+//@Repository
 public class InMemmoryLanguage {
 
-	List<ProgrammingLanguage> languageList = new ArrayList<ProgrammingLanguage>();
+	List<Language> languageList = new ArrayList<Language>();
 	
-	public List<ProgrammingLanguage> getAllLanguageList(){                            //lIST
+	public List<Language> getAllLanguageList(){                            //lIST
 		return languageList;
 	}
 	
-	public ProgrammingLanguage addLanguage(ProgrammingLanguage language) throws Exception {    //ADD
+	public Language addLanguage(Language language) throws Exception {    //ADD
 		
 		languageList.add(language);
 		
@@ -29,7 +29,7 @@ public class InMemmoryLanguage {
 	
 	public void deleteLanguage(int id) {                              // DELETE
 		
-		ProgrammingLanguage result = getProgrammingLanguageById(id);
+		Language result = getProgrammingLanguageById(id);
 		
 		languageList.remove(result);
 		//languageList.remove(languageList.indexOf(result));
@@ -37,16 +37,16 @@ public class InMemmoryLanguage {
 		System.out.println(id + " programala dili listeden kaldırıldı");
 	}
 	
-	public ProgrammingLanguage updateLanguage(int id , ProgrammingLanguage newLanguage) throws Exception { //UPDATE
+	public Language updateLanguage(int id , Language newLanguage) throws Exception { //UPDATE
 		
-		ProgrammingLanguage result = getProgrammingLanguageById(id);
+		Language result = getProgrammingLanguageById(id);
 		
 		languageList.set(languageList.indexOf(result), newLanguage);
 		
 		return newLanguage;
 	}
 	
-	public ProgrammingLanguage getProgrammingLanguageById(int id) {
+	public Language getProgrammingLanguageById(int id) {
 		return languageList.stream()
 				.filter(l -> l.getId() == id)
 				.findAny()
