@@ -27,6 +27,6 @@ public class Language {
 	private String name;
 	
 
-	@OneToMany(mappedBy = "language" , /*fetch = FetchType.LAZY ,*/ cascade =  CascadeType.ALL)
-	private List<Framework> frameworkList;
+	@OneToMany(mappedBy = "language")
+	private List<Framework> frameworks;
 }

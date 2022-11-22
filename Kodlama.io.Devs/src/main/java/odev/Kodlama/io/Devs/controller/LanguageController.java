@@ -7,48 +7,54 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import odev.Kodlama.io.Devs.dto.LanguageDto;
-import odev.Kodlama.io.Devs.dto.SaveLanguageRequest;
-import odev.Kodlama.io.Devs.dto.UpdateLanguageRequest;
-import odev.Kodlama.io.Devs.service.LanguageService;
+import lombok.AllArgsConstructor;
+import odev.Kodlama.io.Devs.business.abstracts.LanguageService;
+
+import odev.Kodlama.io.Devs.business.requests.CreateLanguageRequest;
+import odev.Kodlama.io.Devs.business.requests.UpdateLanguageRequest;
+import odev.Kodlama.io.Devs.business.responses.CreateLanguageResponse;
+import odev.Kodlama.io.Devs.business.responses.GetAllLanguageResponse;
+import odev.Kodlama.io.Devs.business.responses.GetLanguageResponse;
+import odev.Kodlama.io.Devs.business.responses.UpdateLanguageResponse;
+
 
 @RestController
-@RequestMapping("/api/languages/")
+@RequestMapping("/api/v1/languages/")
+@AllArgsConstructor
 public class LanguageController {
 
 	private final LanguageService languageService;
-
-	public LanguageController(LanguageService languageService) {
-		this.languageService = languageService;
+	
+	@GetMapping("getAll")
+	public List<GetAllLanguageResponse> getAll(){
+		return languageService.getAll();
 	}
 	
-	@GetMapping
-	public List<LanguageDto> getAllLanguages(){
-		return languageService.getAllLanguages();
+	@GetMapping("getAllByName")
+	GetLanguageResponse getByName(String name){
+		return languageService.getByName(name);
 	}
 	
-	@GetMapping("{id}")
-	public LanguageDto findLanguageById(@PathVariable int id) {
-		return languageService.findLanguageById(id);
+	@GetMapping("getById/{id}")
+	public GetLanguageResponse getById(@PathVariable int id) {
+		return languageService.getById(id);
 	}
 	
-	@PostMapping
-	public LanguageDto add(@RequestBody SaveLanguageRequest request) throws Exception {
+	@PostMapping("add")
+	public CreateLanguageResponse add(CreateLanguageRequest request) {
 		return languageService.add(request);
 	}
 	
-	@PutMapping("{id}")
-	public LanguageDto updateLanguageById(@PathVariable int id,@RequestBody UpdateLanguageRequest request) {
-		return languageService.updateLanguageById(id, request);
+	@PutMapping("update")
+	UpdateLanguageResponse update(UpdateLanguageRequest request) {
+		return languageService.update(request);
 	}
 	
-	@DeleteMapping("{id}")
-	public void deleteLanguageById(int id) {
-		languageService.deleteLanguageById(id);
+	@DeleteMapping("deleteById/{id}")
+	void deleteById(@PathVariable int id) {
+		languageService.deleteById(id);
 	}
-	
 }
